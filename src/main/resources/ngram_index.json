@@ -1,0 +1,64 @@
+PUT /ngram_esapi
+{
+  "settings":{
+    "analysis": {
+      "analyzer": {
+        "charSplit": {
+          "type": "custom",
+          "tokenizer": "my_ngram_tokenizer",
+          "filter": [
+            "lowercase"
+          ],
+          "char_filter": [
+            "html_strip"
+          ]
+        }
+      },
+      "tokenizer": {
+        "my_ngram_tokenizer": {
+          "type": "nGram",
+          "min_gram": "1",
+          "max_gram": "1",
+          "token_chars": [
+            "letter",
+            "digit",
+            "punctuation"
+          ]
+        }
+      }
+    }
+  },
+  "mappings":{
+    "ngram_person":{
+      "properties":{
+        "id": {
+          "type": "long"
+        },
+        "age": {
+          "type": "integer"
+        },
+        "name": {
+          "type":"text",
+          "analyzer":"charSplit"
+        },
+        "address": {
+          "type":"text",
+          "analyzer":"charSplit"
+        }
+      }
+    }
+  }
+}
+
+
+
+
+//------- 新增一个字段
+PUT /ngram_esapi/_mapping/ngram_person/
+{
+  "properties": {
+    "addressNoAnalysis": {
+      "type": "keyword"
+    }
+  }
+}

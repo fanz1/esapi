@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwopqq.esapi.mapper.PersonMapper">
+  <resultMap id="BaseResultMap" type="com.itwopqq.esapi.model.Person">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="AGE" jdbcType="INTEGER" property="age" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="ADDRESS_ANALYSIS" jdbcType="VARCHAR" property="addressNoAnalysis" />
+  </resultMap>
+  
+  <select id="pageByThanId" resultMap="BaseResultMap">
+    SELECT ID, NAME, AGE, ADDRESS, ADDRESS AS ADDRESS_ANALYSIS FROM person WHERE ID &gt; #{id, jdbcType=BIGINT}
+    ORDER BY ID LIMIT ${size}
+  </select>
+</mapper>
